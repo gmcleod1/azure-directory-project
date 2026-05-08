@@ -27,7 +27,7 @@ services:
       start_period: 30s
 
   osticket:
-    image: campbellsoftwaresolutions/osticket:1.18.1
+    image: campbellsoftwaresolutions/osticket:1.12
     container_name: smallco-osticket
     environment:
       MYSQL_HOST: db
