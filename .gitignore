@@ -28,3 +28,5 @@ build/
 # osTicket local data
 osticket-data/
 docker-volumes/
+backups/
+*.sql

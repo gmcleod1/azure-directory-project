@@ -1,0 +1,49 @@
+# SmallCo Manufacturing — osTicket + MariaDB
+#
+# Bring up:   docker compose up -d
+# Logs:       docker compose logs -f
+# Tear down:  docker compose down            (keeps volumes)
+# Wipe:       docker compose down -v         (deletes ticket data — irreversible)
+#
+# First-run wizard at http://localhost:8080 — see SETUP.md for inputs.
+
+services:
+  db:
+    image: mariadb:10.11
+    container_name: smallco-osticket-db
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: osticket
+      MARIADB_USER: osticket
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  osticket:
+    image: campbellsoftwaresolutions/osticket:1.18.1
+    container_name: smallco-osticket
+    environment:
+      MYSQL_HOST: db
+      MYSQL_DATABASE: osticket
+      MYSQL_USER: osticket
+      MYSQL_PASSWORD: ${MARIADB_PASSWORD}
+      INSTALL_SECRET: ${INSTALL_SECRET}
+    ports:
+      - "8080:80"
+    volumes:
+      - osticket_data:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  db_data:
+  osticket_data:
