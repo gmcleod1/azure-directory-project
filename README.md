@@ -1,4 +1,4 @@
-# smallco-it-ops
+# azure-directory-project
 
 > A simulated 25-user IT operation — built, scripted, ticketed, and documented.
 > What a real Tier 1 / sole IT analyst week looks like, end-to-end.
@@ -42,7 +42,7 @@ Full architecture: [`docs/architecture/overview.md`](docs/architecture/overview.
 ## Repo layout
 
 ```
-smallco-it-ops/
+azure-directory-project/
 ├── docs/
 │   ├── architecture/     # Diagrams, design decisions, "why this shape"
 │   └── diagrams/         # PNG/SVG assets

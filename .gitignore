@@ -30,3 +30,6 @@ osticket-data/
 docker-volumes/
 backups/
 *.sql
+
+# Unredacted originals (publish only the redacted copies in docs/screenshots)
+/Screenshots/
